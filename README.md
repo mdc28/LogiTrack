@@ -1,36 +1,36 @@
-# LogiTrack 
+# LogiTrack
 ## Sistema de Gestão de Transporte
 
 Sistema web desenvolvido para gerenciamento de operações de transporte, permitindo o controle de clientes, veículos, fretes e entregas.
 
-O projeto foi desenvolvido com foco na organização de informações logísticas, integração entre frontend, backend e banco de dados.
+O projeto tem como objetivo organizar informações logísticas através da integração entre frontend, backend e banco de dados.
 
+---
 
-## Funcionalidades
+# Funcionalidades
 
-### Clientes
-- Cadastro de clientes
-- Listagem de clientes cadastrados
+## Clientes
+- Cadastro e listagem de clientes
 - Controle de status
 
-### Veículos
+## Veículos
 - Cadastro de veículos
 - Controle de identificação, modelo e disponibilidade
 
-### Fretes
+## Fretes
 - Cadastro de operações de transporte
 - Controle de origem, destino, valor e status
 
-### Entregas
+## Entregas
 - Registro e acompanhamento de entregas
-- Controle de endereço, responsável e situação
 
-### Dashboard
-- Painel de controle com dados reais do sistema
-- Informações atualizadas através do banco de dados
+## Painel de Controle
+- Dashboard com informações reais do sistema
+- Dados atualizados através do banco de dados
 
+---
 
-## Tecnologias Utilizadas
+# Tecnologias Utilizadas
 
 - HTML5
 - CSS3
@@ -38,23 +38,23 @@ O projeto foi desenvolvido com foco na organização de informações logística
 - Express
 - MySQL
 
+---
 
-## Estrutura do Projeto
+# Estrutura do Projeto
+
+```text
 LogiTrack
 │
-├── Frontend
-│ ├── Páginas HTML
-│ └── CSS
-│
-└── Backend
-├── server.js
-└── Integração com MySQL
+├── frontend
+├── backend
+│   └── server.js
+├── package.json
+└── README.md
+```
 
+---
 
-
-## Próximas Evoluções
-
-Versão 2.0:
+# Próximas Evoluções
 
 - CT-e
 - MDF-e
@@ -63,9 +63,9 @@ Versão 2.0:
 - Rastreamento
 - Relatórios
 
+---
 
-## Desenvolvido por
+# Desenvolvido por
 
-Mariana Dolemba Chagas
-
+**Mariana Dolemba Chagas**  
 Ciência da Computação
