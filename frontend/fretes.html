@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fretes - LogiTrack</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>LogiTrack</h1>
+<p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+
+
+<nav>
+
+<ul>
+
+<li><a href="painel-controle.html">Painel de Controle</a></li>
+<li><a href="clientes.html">Clientes</a></li>
+<li><a href="veiculos.html">Veículos</a></li>
+<li><a href="fretes.html" class="ativo-menu">Fretes</a></li>
+<li><a href="entregas.html">Entregas</a></li>
+
+</ul>
+
+</nav>
+
+
+
+<main>
+
+
+<div class="cabecalho-pagina">
+
+<div>
+
+<h2>Fretes</h2>
+
+<p>
+Gerenciamento dos fretes cadastrados no sistema
+</p>
+
+</div>
+
+
+<a href="novo-frete.html" class="botao-principal">
+Novo Frete
+</a>
+
+
+</div>
+
+
+
+<section class="filtro">
+
+<input 
+type="text"
+placeholder="Pesquisar frete...">
+
+</section>
+
+
+
+
+<section class="tabela-container">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Cliente</th>
+<th>Veículo</th>
+<th>Origem</th>
+<th>Destino</th>
+<th>Data</th>
+<th>Valor</th>
+<th>Status</th>
+<th>Ações</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="lista-fretes">
+
+</tbody>
+
+
+</table>
+
+
+</section>
+
+
+</main>
+
+
+
+
+<script>
+
+
+fetch("http://localhost:3000/fretes")
+
+
+.then(resposta => resposta.json())
+
+
+.then(fretes => {
+
+
+const tabela = document.getElementById("lista-fretes");
+
+
+
+fretes.forEach(frete => {
+
+
+
+const linha = document.createElement("tr");
+
+
+
+linha.innerHTML = `
+
+
+<td>${frete.cliente}</td>
+
+
+<td>${frete.veiculo}</td>
+
+
+<td>${frete.origem}</td>
+
+
+<td>${frete.destino}</td>
+
+
+<td>${frete.data_frete}</td>
+
+
+<td>
+
+R$ ${Number(frete.valor).toFixed(2)}
+
+</td>
+
+
+<td>
+
+<span class="status disponivel">
+
+${frete.status}
+
+</span>
+
+</td>
+
+
+<td>
+
+<button 
+class="botao-editar"
+onclick="editarFrete(${frete.id})">
+
+Editar
+
+</button>
+
+</td>
+
+
+`;
+
+
+
+tabela.appendChild(linha);
+
+
+
+});
+
+
+
+})
+
+
+
+.catch(erro => {
+
+
+console.log("Erro ao carregar fretes:", erro);
+
+
+});
+
+
+
+
+// ABRIR EDITAR FRETE
+
+function editarFrete(id) {
+
+
+window.location.href = "editar-frete.html?id=" + id;
+
+
+}
+
+
+
+</script>
+
+
+
+</body>
+
+</html>

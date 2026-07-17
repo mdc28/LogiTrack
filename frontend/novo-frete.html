@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Novo Frete - LogiTrack</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>LogiTrack</h1>
+    <p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+<nav>
+
+    <ul>
+
+        <li><a href="painel-controle.html">Painel de Controle</a></li>
+        <li><a href="clientes.html">Clientes</a></li>
+        <li><a href="veiculos.html">Veículos</a></li>
+        <li><a href="fretes.html" class="ativo-menu">Fretes</a></li>
+        <li><a href="entregas.html">Entregas</a></li>
+
+    </ul>
+
+</nav>
+
+<main>
+
+    <div class="cabecalho-pagina">
+
+        <div>
+
+            <h2>Novo Frete</h2>
+
+            <p>Cadastro de uma nova operação de transporte</p>
+
+        </div>
+
+    </div>
+
+    <section class="formulario">
+
+        <form id="form-frete">
+
+            <label for="cliente">Cliente</label>
+
+            <select id="cliente" required>
+
+                <option value="">Selecione o cliente</option>
+
+            </select>
+
+
+            <label for="veiculo">Veículo</label>
+
+            <select id="veiculo" required>
+
+                <option value="">Selecione o veículo</option>
+
+            </select>
+
+
+            <label for="origem">Origem</label>
+
+            <input
+                type="text"
+                id="origem"
+                placeholder="Digite a cidade de origem"
+                required>
+
+
+            <label for="destino">Destino</label>
+
+            <input
+                type="text"
+                id="destino"
+                placeholder="Digite a cidade de destino"
+                required>
+
+
+            <label for="data">Data do Frete</label>
+
+            <input
+                type="date"
+                id="data"
+                required>
+
+
+            <label for="valor">Valor do Frete</label>
+
+            <input
+                type="number"
+                id="valor"
+                step="0.01"
+                placeholder="0,00"
+                required>
+
+
+            <label for="status">Status</label>
+
+            <select id="status">
+
+                <option value="Em aberto">Em aberto</option>
+                <option value="Em transporte">Em transporte</option>
+                <option value="Finalizado">Finalizado</option>
+
+            </select>
+
+            <div class="acoes-formulario">
+
+                <a href="fretes.html" class="botao-cancelar">
+                    Cancelar
+                </a>
+
+                <button type="submit" class="botao-principal">
+                    Salvar Frete
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+<script>
+    // CARREGAR CLIENTES
+
+fetch("http://localhost:3000/clientes")
+.then(resposta => resposta.json())
+.then(clientes => {
+
+    const selectCliente = document.getElementById("cliente");
+
+    clientes.forEach(cliente => {
+
+        const option = document.createElement("option");
+
+        option.value = cliente.id;
+        option.textContent = cliente.nome;
+
+        selectCliente.appendChild(option);
+
+    });
+
+})
+.catch(erro => {
+
+    console.log("Erro ao carregar clientes:", erro);
+
+});
+
+
+
+// CARREGAR VEÍCULOS
+
+fetch("http://localhost:3000/veiculos")
+.then(resposta => resposta.json())
+.then(veiculos => {
+
+    const selectVeiculo = document.getElementById("veiculo");
+
+    veiculos.forEach(veiculo => {
+
+        const option = document.createElement("option");
+
+        option.value = veiculo.id;
+        option.textContent =
+            veiculo.identificacao + " - " + veiculo.modelo;
+
+        selectVeiculo.appendChild(option);
+
+    });
+
+})
+.catch(erro => {
+
+    console.log("Erro ao carregar veículos:", erro);
+
+});
+
+
+
+// SALVAR FRETE
+
+const formulario = document.getElementById("form-frete");
+
+formulario.addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    const frete = {
+
+        cliente_id: document.getElementById("cliente").value,
+
+        veiculo_id: document.getElementById("veiculo").value,
+
+        origem: document.getElementById("origem").value,
+
+        destino: document.getElementById("destino").value,
+
+        data_frete: document.getElementById("data").value,
+
+        valor: document.getElementById("valor").value,
+
+        status: document.getElementById("status").value
+
+    };
+
+
+    fetch("http://localhost:3000/fretes", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+        body: JSON.stringify(frete)
+
+    })
+
+    .then(resposta => resposta.json())
+
+    .then(resultado => {
+
+        alert(resultado.mensagem);
+
+        window.location.href = "fretes.html";
+
+    })
+
+    .catch(erro => {
+
+        console.log("Erro:", erro);
+
+        alert("Erro ao cadastrar frete.");
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>

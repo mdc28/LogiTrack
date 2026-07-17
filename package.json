@@ -1,0 +1,23 @@
+{
+  "name": "logitrack",
+  "version": "1.0.0",
+  "description": "Sistema web para gerenciamento de transporte, controle de clientes, veículos e operações de frete.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdc28/LogiTrack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdc28/LogiTrack/issues"
+  },
+  "homepage": "https://github.com/mdc28/LogiTrack#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

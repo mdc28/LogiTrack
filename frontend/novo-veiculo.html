@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Novo Veículo - LogiTrack</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>LogiTrack</h1>
+    <p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+<nav>
+
+    <ul>
+
+        <li><a href="painel-controle.html">Painel de Controle</a></li>
+        <li><a href="clientes.html">Clientes</a></li>
+        <li><a href="veiculos.html" class="ativo-menu">Veículos</a></li>
+        <li><a href="fretes.html">Fretes</a></li>
+        <li><a href="entregas.html">Entregas</a></li>
+
+    </ul>
+
+</nav>
+
+<main>
+
+    <div class="cabecalho-pagina">
+
+        <div>
+
+            <h2>Novo Veículo</h2>
+
+            <p>Cadastro de um novo veículo no sistema</p>
+
+        </div>
+
+    </div>
+
+    <section class="formulario">
+
+        <label>Identificação</label>
+
+        <input id="identificacao" type="text" placeholder="Ex.: PLACA-001">
+
+        <label>Modelo</label>
+
+        <input id="modelo" type="text" placeholder="Digite o modelo">
+
+        <label>Tipo</label>
+
+        <input id="tipo" type="text" placeholder="Digite o tipo do veículo">
+
+        <label>Status</label>
+
+        <select id="status">
+
+            <option>Disponível</option>
+            <option>Em viagem</option>
+            <option>Em manutenção</option>
+
+        </select>
+
+        <div class="acoes-formulario">
+
+            <a href="veiculos.html" class="botao-cancelar">
+                Cancelar
+            </a>
+
+            <button class="botao-principal" onclick="salvarVeiculo()">
+                Salvar Veículo
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+  <script>
+function salvarVeiculo() {
+    const veiculo = {
+        identificacao: document.getElementById("identificacao").value,
+        modelo: document.getElementById("modelo").value,
+        tipo: document.getElementById("tipo").value,
+        status: document.getElementById("status").value
+    };
+    fetch("http://localhost:3000/veiculos", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(veiculo)
+    })
+    .then(resposta => resposta.json())
+    .then(dados => {
+        alert(dados.mensagem);
+    })
+    .catch(erro => {
+        console.log("Erro:", erro);
+    });
+
+}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Entregas - LogiTrack</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>LogiTrack</h1>
+<p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+
+
+<nav>
+
+<ul>
+
+<li><a href="painel-controle.html">Painel de Controle</a></li>
+<li><a href="clientes.html">Clientes</a></li>
+<li><a href="veiculos.html">Veículos</a></li>
+<li><a href="fretes.html">Fretes</a></li>
+<li><a href="entregas.html" class="ativo-menu">Entregas</a></li>
+
+</ul>
+
+</nav>
+
+
+
+<main>
+
+
+<div class="cabecalho-pagina">
+
+
+<div>
+
+<h2>Entregas</h2>
+
+<p>
+Acompanhamento das entregas cadastradas no sistema
+</p>
+
+</div>
+
+
+
+<a href="nova-entrega.html" class="botao-principal">
+
+Nova Entrega
+
+</a>
+
+
+</div>
+
+
+
+
+<section class="filtro">
+
+
+<input 
+type="text"
+placeholder="Pesquisar entrega...">
+
+
+</section>
+
+
+
+
+<section class="tabela-container">
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+<th>Código</th>
+<th>Cliente</th>
+<th>Destino</th>
+<th>Data Prevista</th>
+<th>Status</th>
+<th>Ações</th>
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="lista-entregas">
+
+
+</tbody>
+
+
+
+</table>
+
+
+</section>
+
+
+</main>
+
+
+
+
+
+<script>
+
+
+fetch("http://localhost:3000/entregas")
+
+
+.then(resposta => resposta.json())
+
+
+.then(entregas => {
+
+
+
+const tabela = document.getElementById("lista-entregas");
+
+
+
+entregas.forEach(entrega => {
+
+
+
+const linha = document.createElement("tr");
+
+
+
+linha.innerHTML = `
+
+
+<td>
+
+${entrega.id}
+
+</td>
+
+
+
+<td>
+
+${entrega.cliente}
+
+</td>
+
+
+
+<td>
+
+${entrega.destino}
+
+</td>
+
+
+
+<td>
+
+${entrega.data_entrega}
+
+</td>
+
+
+
+<td>
+
+
+<span class="status disponivel">
+
+${entrega.status}
+
+</span>
+
+
+</td>
+
+
+
+<td>
+
+
+<button 
+class="botao-editar"
+onclick="editarEntrega(${entrega.id})">
+
+Editar
+
+</button>
+
+
+</td>
+
+
+
+`;
+
+
+
+tabela.appendChild(linha);
+
+
+
+});
+
+
+
+})
+
+
+.catch(erro => {
+
+
+console.log("Erro ao carregar entregas:", erro);
+
+
+});
+
+
+
+
+// EDITAR ENTREGA
+
+function editarEntrega(id) {
+
+
+window.location.href = "editar-entrega.html?id=" + id;
+
+
+}
+
+
+
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Clientes - LogiTrack</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>LogiTrack</h1>
+    <p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+
+<nav>
+
+    <ul>
+
+        <li><a href="painel-controle.html">Painel de Controle</a></li>
+        <li><a href="clientes.html" class="ativo-menu">Clientes</a></li>
+        <li><a href="veiculos.html">Veículos</a></li>
+        <li><a href="fretes.html">Fretes</a></li>
+        <li><a href="entregas.html">Entregas</a></li>
+
+    </ul>
+
+</nav>
+
+
+
+<main>
+
+
+<div class="cabecalho-pagina">
+
+
+    <div>
+
+        <h2>Clientes</h2>
+
+        <p>
+            Gerenciamento dos clientes cadastrados no sistema
+        </p>
+
+    </div>
+
+
+    <a href="novo-cliente.html" class="botao-principal">
+        Novo Cliente
+    </a>
+
+
+</div>
+
+
+
+
+<section class="filtro">
+
+    <input 
+    type="text" 
+    placeholder="Pesquisar cliente...">
+
+</section>
+
+
+
+
+<section class="tabela-container">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+    <th>Nome</th>
+    <th>Documento</th>
+    <th>Telefone</th>
+    <th>Cidade</th>
+    <th>Status</th>
+    <th>Ações</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="lista-clientes">
+
+
+<!-- Clientes do banco aparecerão aqui -->
+
+
+</tbody>
+
+
+
+</table>
+
+
+</section>
+
+
+</main>
+
+
+<script>
+
+
+fetch("http://localhost:3000/clientes")
+
+
+.then(resposta => resposta.json())
+
+
+.then(clientes => {
+
+
+    const tabela = document.getElementById("lista-clientes");
+
+
+
+    clientes.forEach(cliente => {
+
+
+
+        const linha = document.createElement("tr");
+
+
+
+        linha.innerHTML = `
+
+
+            <td>${cliente.nome}</td>
+
+
+            <td>${cliente.documento}</td>
+
+
+            <td>${cliente.telefone}</td>
+
+
+            <td>${cliente.cidade}</td>
+
+
+            <td>
+
+                <span class="status disponivel">
+
+                    ${cliente.status}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <button class="botao-editar" onclick="editarCliente(${cliente.id})">
+
+                    Editar
+
+                </button>
+
+            </td>
+
+
+        `;
+
+
+
+        tabela.appendChild(linha);
+
+
+
+    });
+
+
+
+})
+
+
+.catch(erro => {
+
+
+    console.log("Erro ao carregar clientes:", erro);
+
+
+});
+
+
+
+// ABRIR PÁGINA DE EDIÇÃO
+
+function editarCliente(id) {
+
+    window.location.href = "editar-cliente.html?id=" + id;
+
+}
+
+
+</script>
+
+
+
+</body>
+
+</html>

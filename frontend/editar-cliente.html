@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Editar Cliente - LogiTrack</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>LogiTrack</h1>
+    <p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+
+<nav>
+
+    <ul>
+
+        <li><a href="painel-controle.html">Painel de Controle</a></li>
+        <li><a href="clientes.html" class="ativo-menu">Clientes</a></li>
+        <li><a href="veiculos.html">Veículos</a></li>
+        <li><a href="fretes.html">Fretes</a></li>
+        <li><a href="entregas.html">Entregas</a></li>
+
+    </ul>
+
+</nav>
+
+
+
+<main>
+
+
+<div class="cabecalho-pagina">
+
+    <div>
+
+        <h2>Editar Cliente</h2>
+
+        <p>Atualização dos dados do cliente cadastrado</p>
+
+    </div>
+
+</div>
+
+
+
+<section class="formulario">
+
+
+<form id="form-editar-cliente">
+
+
+<label>
+Nome
+</label>
+
+<input 
+type="text"
+id="nome"
+required>
+
+
+
+<label>
+Documento
+</label>
+
+<input 
+type="text"
+id="documento">
+
+
+
+<label>
+Telefone
+</label>
+
+<input 
+type="text"
+id="telefone">
+
+
+
+<label>
+Email
+</label>
+
+<input 
+type="email"
+id="email">
+
+
+
+<label>
+Cidade
+</label>
+
+<input 
+type="text"
+id="cidade">
+
+
+
+<label>
+Status
+</label>
+
+<select id="status">
+
+    <option value="Ativo">
+        Ativo
+    </option>
+
+    <option value="Inativo">
+        Inativo
+    </option>
+
+</select>
+
+
+
+<div class="acoes-formulario">
+
+
+<a href="clientes.html" class="botao-cancelar">
+Cancelar
+</a>
+
+
+<button type="submit" class="botao-principal">
+Salvar Alterações
+</button>
+
+
+</div>
+
+
+</form>
+
+
+</section>
+
+
+</main>
+
+
+
+<script>
+
+
+// PEGAR ID DA URL
+
+const parametros = new URLSearchParams(window.location.search);
+
+const idCliente = parametros.get("id");
+
+
+
+// BUSCAR CLIENTE
+
+fetch("http://localhost:3000/clientes")
+
+.then(resposta => resposta.json())
+
+.then(clientes => {
+
+
+    const cliente = clientes.find(c => c.id == idCliente);
+
+
+
+    if(cliente){
+
+
+        document.getElementById("nome").value = cliente.nome;
+
+        document.getElementById("documento").value = cliente.documento;
+
+        document.getElementById("telefone").value = cliente.telefone;
+
+        document.getElementById("email").value = cliente.email;
+
+        document.getElementById("cidade").value = cliente.cidade;
+
+        document.getElementById("status").value = cliente.status;
+
+
+    }
+
+
+});
+
+
+
+// SALVAR ALTERAÇÃO
+
+document.getElementById("form-editar-cliente")
+
+.addEventListener("submit", function(event){
+
+
+    event.preventDefault();
+
+
+
+    const dados = {
+
+
+        nome:
+        document.getElementById("nome").value,
+
+
+        documento:
+        document.getElementById("documento").value,
+
+
+        telefone:
+        document.getElementById("telefone").value,
+
+
+        email:
+        document.getElementById("email").value,
+
+
+        cidade:
+        document.getElementById("cidade").value,
+
+
+        status:
+        document.getElementById("status").value
+
+
+    };
+
+
+
+    fetch(`http://localhost:3000/clientes/${idCliente}`, {
+
+
+        method: "PUT",
+
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+
+        body: JSON.stringify(dados)
+
+
+    })
+
+
+    .then(resposta => resposta.json())
+
+
+    .then(resultado => {
+
+
+        alert(resultado.mensagem);
+
+
+        window.location.href = "clientes.html";
+
+
+    });
+
+
+
+});
+
+
+</script>
+
+
+
+</body>
+
+</html>

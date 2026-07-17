@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Editar Entrega - LogiTrack</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>LogiTrack</h1>
+<p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+
+
+<nav>
+
+<ul>
+
+<li><a href="painel-controle.html">Painel de Controle</a></li>
+<li><a href="clientes.html">Clientes</a></li>
+<li><a href="veiculos.html">Veículos</a></li>
+<li><a href="fretes.html">Fretes</a></li>
+<li><a href="entregas.html" class="ativo-menu">Entregas</a></li>
+
+</ul>
+
+</nav>
+
+
+
+<main>
+
+
+<div class="cabecalho-pagina">
+
+<h2>Editar Entrega</h2>
+
+<p>Atualização dos dados da entrega</p>
+
+</div>
+
+
+
+
+<section class="formulario">
+
+
+<form id="form-editar-entrega">
+
+
+<label>
+Data de Entrega
+</label>
+
+<input type="date" id="data_entrega">
+
+
+
+<label>
+Endereço de Entrega
+</label>
+
+<input type="text" id="endereco">
+
+
+
+<label>
+Responsável pelo Recebimento
+</label>
+
+<input type="text" id="responsavel">
+
+
+
+<label>
+Status
+</label>
+
+
+<select id="status">
+
+
+<option value="Aguardando">
+Aguardando
+</option>
+
+
+<option value="Em transporte">
+Em transporte
+</option>
+
+
+<option value="Entregue">
+Entregue
+</option>
+
+
+<option value="Cancelada">
+Cancelada
+</option>
+
+
+</select>
+
+
+
+<div class="acoes-formulario">
+
+
+<a href="entregas.html" class="botao-cancelar">
+
+Cancelar
+
+</a>
+
+
+
+<button class="botao-principal">
+
+Salvar Alterações
+
+</button>
+
+
+
+</div>
+
+
+</form>
+
+
+</section>
+
+
+</main>
+
+
+
+
+
+<script>
+
+
+const parametros = new URLSearchParams(window.location.search);
+
+const idEntrega = parametros.get("id");
+
+
+
+
+// BUSCAR ENTREGA
+
+fetch("http://localhost:3000/entregas")
+
+
+.then(resposta => resposta.json())
+
+
+.then(entregas => {
+
+
+const entrega = entregas.find(e => e.id == idEntrega);
+
+
+
+if(entrega){
+
+
+document.getElementById("data_entrega").value =
+entrega.data_entrega 
+? entrega.data_entrega.substring(0,10)
+: "";
+
+
+
+document.getElementById("status").value =
+entrega.status;
+
+
+
+}
+
+
+});
+
+
+
+
+// SALVAR ALTERAÇÃO
+
+
+document.getElementById("form-editar-entrega")
+
+.addEventListener("submit", function(event){
+
+
+event.preventDefault();
+
+
+
+const dados = {
+
+
+data_entrega:
+document.getElementById("data_entrega").value,
+
+
+endereco:
+document.getElementById("endereco").value,
+
+
+responsavel:
+document.getElementById("responsavel").value,
+
+
+status:
+document.getElementById("status").value
+
+
+};
+
+
+
+fetch(`http://localhost:3000/entregas/${idEntrega}`, {
+
+
+method:"PUT",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify(dados)
+
+
+})
+
+
+.then(resposta => resposta.json())
+
+
+.then(resultado => {
+
+
+alert(resultado.mensagem);
+
+
+window.location.href="entregas.html";
+
+
+});
+
+
+});
+
+
+</script>
+
+
+</body>
+
+</html>

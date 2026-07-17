@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Editar Veículo - LogiTrack</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>LogiTrack</h1>
+    <p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+
+<nav>
+
+    <ul>
+
+        <li><a href="painel-controle.html">Painel de Controle</a></li>
+        <li><a href="clientes.html">Clientes</a></li>
+        <li><a href="veiculos.html" class="ativo-menu">Veículos</a></li>
+        <li><a href="fretes.html">Fretes</a></li>
+        <li><a href="entregas.html">Entregas</a></li>
+
+    </ul>
+
+</nav>
+
+
+
+<main>
+
+
+<div class="cabecalho-pagina">
+
+    <div>
+
+        <h2>Editar Veículo</h2>
+
+        <p>Atualização dos dados do veículo cadastrado</p>
+
+    </div>
+
+</div>
+
+
+
+<section class="formulario">
+
+
+<form id="form-editar-veiculo">
+
+
+<label>
+Identificação
+</label>
+
+<input 
+type="text" 
+id="identificacao"
+required>
+
+
+<label>
+Modelo
+</label>
+
+<input 
+type="text" 
+id="modelo"
+required>
+
+
+<label>
+Tipo
+</label>
+
+<input 
+type="text" 
+id="tipo"
+required>
+
+
+<label>
+Status
+</label>
+
+<select id="status">
+
+    <option value="Disponível">
+        Disponível
+    </option>
+
+    <option value="Em viagem">
+        Em viagem
+    </option>
+
+    <option value="Manutenção">
+        Manutenção
+    </option>
+
+</select>
+
+
+
+<div class="acoes-formulario">
+
+
+<a href="veiculos.html" class="botao-cancelar">
+Cancelar
+</a>
+
+
+<button type="submit" class="botao-principal">
+Salvar Alterações
+</button>
+
+
+</div>
+
+
+</form>
+
+
+</section>
+
+
+</main>
+
+
+
+<script>
+
+
+// PEGAR ID DA URL
+
+const parametros = new URLSearchParams(window.location.search);
+
+const idVeiculo = parametros.get("id");
+
+
+
+// BUSCAR VEÍCULO
+
+fetch("http://localhost:3000/veiculos")
+
+.then(resposta => resposta.json())
+
+.then(veiculos => {
+
+
+    const veiculo = veiculos.find(v => v.id == idVeiculo);
+
+
+    if(veiculo){
+
+
+        document.getElementById("identificacao").value = veiculo.identificacao;
+
+        document.getElementById("modelo").value = veiculo.modelo;
+
+        document.getElementById("tipo").value = veiculo.tipo;
+
+        document.getElementById("status").value = veiculo.status;
+
+
+    }
+
+
+});
+
+
+
+// SALVAR ALTERAÇÃO
+
+document.getElementById("form-editar-veiculo")
+
+.addEventListener("submit", function(event){
+
+
+    event.preventDefault();
+
+
+
+    const dados = {
+
+
+        identificacao:
+        document.getElementById("identificacao").value,
+
+
+        modelo:
+        document.getElementById("modelo").value,
+
+
+        tipo:
+        document.getElementById("tipo").value,
+
+
+        status:
+        document.getElementById("status").value
+
+
+    };
+
+
+
+    fetch(`http://localhost:3000/veiculos/${idVeiculo}`, {
+
+
+        method: "PUT",
+
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+
+        body: JSON.stringify(dados)
+
+
+    })
+
+
+    .then(resposta => resposta.json())
+
+
+    .then(resultado => {
+
+
+        alert(resultado.mensagem);
+
+
+        window.location.href = "veiculos.html";
+
+
+    });
+
+
+
+});
+
+
+</script>
+
+
+</body>
+
+</html>

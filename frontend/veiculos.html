@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Veículos - LogiTrack</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>LogiTrack</h1>
+    <p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+
+<nav>
+
+    <ul>
+
+        <li><a href="painel-controle.html">Painel de Controle</a></li>
+        <li><a href="clientes.html">Clientes</a></li>
+        <li><a href="veiculos.html" class="ativo-menu">Veículos</a></li>
+        <li><a href="fretes.html">Fretes</a></li>
+        <li><a href="entregas.html">Entregas</a></li>
+
+    </ul>
+
+</nav>
+
+
+
+<main>
+
+
+    <div class="cabecalho-pagina">
+
+        <div>
+
+            <h2>Veículos</h2>
+
+            <p>
+                Gerenciamento dos veículos cadastrados no sistema
+            </p>
+
+        </div>
+
+
+        <a href="novo-veiculo.html" class="botao-principal">
+            Novo Veículo
+        </a>
+
+
+    </div>
+
+
+
+
+    <section class="filtro">
+
+        <input 
+        type="text" 
+        placeholder="Pesquisar veículo...">
+
+    </section>
+
+
+
+
+    <section class="tabela-container">
+
+
+        <table>
+
+
+            <thead>
+
+
+                <tr>
+
+                    <th>Identificação</th>
+                    <th>Modelo</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+
+                </tr>
+
+
+            </thead>
+
+
+
+            <tbody id="lista-veiculos">
+
+
+                <!-- Os veículos do banco aparecerão aqui -->
+
+
+            </tbody>
+
+
+
+        </table>
+
+
+    </section>
+
+
+</main>
+
+
+
+
+
+<script>
+
+
+fetch("http://localhost:3000/veiculos")
+
+
+.then(resposta => resposta.json())
+
+
+.then(veiculos => {
+
+
+    const tabela = document.getElementById("lista-veiculos");
+
+
+
+    veiculos.forEach(veiculo => {
+
+
+
+        const linha = document.createElement("tr");
+
+
+
+        linha.innerHTML = `
+
+
+            <td>${veiculo.identificacao}</td>
+
+
+            <td>${veiculo.modelo}</td>
+
+
+            <td>${veiculo.tipo}</td>
+
+
+            <td>
+
+                <span class="status disponivel">
+
+                    ${veiculo.status}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <button class="botao-editar" onclick="editarVeiculo(${veiculo.id})">
+                Editar
+                </button>
+
+
+            </td>
+
+
+        `;
+
+
+
+        tabela.appendChild(linha);
+
+
+
+    });
+
+
+
+})
+
+
+
+.catch(erro => {
+
+    console.log("Erro ao carregar veículos:", erro);
+
+});
+
+
+function editarVeiculo(id) {
+
+    window.location.href = "editar-veiculo.html?id=" + id;
+
+}
+
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LogiTrack - Sistema de Transporte</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>LogiTrack</h1>
+
+    <p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+
+
+<nav>
+
+    <ul>
+
+        <li><a href="painel-controle.html" class="ativo-menu">Painel de Controle</a></li>
+
+        <li><a href="clientes.html">Clientes</a></li>
+
+        <li><a href="veiculos.html">Veículos</a></li>
+
+        <li><a href="fretes.html">Fretes</a></li>
+
+        <li><a href="entregas.html">Entregas</a></li>
+
+    </ul>
+
+</nav>
+
+
+
+
+<main>
+
+
+<h2>Painel de Controle</h2>
+
+
+
+<section class="cards">
+
+
+    <div class="card">
+
+        <h3>Veículos</h3>
+
+        <strong id="total-veiculos">0</strong>
+
+        <p>Cadastrados</p>
+
+    </div>
+
+
+
+
+    <div class="card">
+
+        <h3>Clientes</h3>
+
+        <strong id="total-clientes">0</strong>
+
+        <p>Cadastrados</p>
+
+    </div>
+
+
+
+
+    <div class="card">
+
+        <h3>Fretes</h3>
+
+        <strong id="total-fretes">0</strong>
+
+        <p>Em andamento</p>
+
+    </div>
+
+
+
+
+    <div class="card">
+
+        <h3>Entregas</h3>
+
+        <strong id="total-entregas">0</strong>
+
+        <p>Concluídas</p>
+
+    </div>
+
+
+</section>
+
+
+
+
+
+<section class="resumo">
+
+
+<h2>Resumo das Operações</h2>
+
+
+
+<div class="tabela">
+
+
+<p>
+Viagens em andamento:
+<b id="total-viagens">0</b>
+</p>
+
+
+
+<p>
+Entregas pendentes:
+<b id="total-pendentes">0</b>
+</p>
+
+
+
+<p>
+CT-e emitidos:
+<b>0</b>
+</p>
+
+
+
+<p>
+MDF-e ativos:
+<b>0</b>
+</p>
+
+
+
+</div>
+
+
+</section>
+
+
+
+</main>
+
+
+
+
+
+<script>
+
+
+fetch("http://localhost:3000/dashboard")
+
+
+.then(res => res.json())
+
+
+.then(dados => {
+
+
+
+    document.getElementById("total-clientes").textContent = dados.clientes;
+
+
+    document.getElementById("total-veiculos").textContent = dados.veiculos;
+
+
+    document.getElementById("total-fretes").textContent = dados.fretes;
+
+
+    document.getElementById("total-entregas").textContent = dados.entregas;
+
+
+    document.getElementById("total-viagens").textContent = dados.viagens || 0;
+
+
+    document.getElementById("total-pendentes").textContent = dados.pendentes || 0;
+
+
+
+})
+
+
+.catch(erro => {
+
+
+    console.log("Erro ao carregar painel:", erro);
+
+
+});
+
+
+</script>
+
+
+
+</body>
+
+</html>

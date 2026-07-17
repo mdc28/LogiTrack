@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nova Entrega - LogiTrack</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>LogiTrack</h1>
+<p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+
+
+<nav>
+
+<ul>
+
+<li><a href="painel-controle.html">Painel de Controle</a></li>
+<li><a href="clientes.html">Clientes</a></li>
+<li><a href="veiculos.html">Veículos</a></li>
+<li><a href="fretes.html">Fretes</a></li>
+<li><a href="entregas.html">Entregas</a></li>
+
+</ul>
+
+</nav>
+
+
+
+<main>
+
+
+<div class="cabecalho-pagina">
+
+<div>
+
+<h2>Nova Entrega</h2>
+
+<p>Cadastro de uma nova entrega no sistema</p>
+
+</div>
+
+</div>
+
+
+
+<section class="formulario">
+
+
+<form id="form-entrega">
+
+
+
+<label>
+Frete
+</label>
+
+<select id="frete_id">
+
+<option value="">
+Selecione o frete
+</option>
+
+</select>
+
+
+
+
+<label>
+Cliente
+</label>
+
+<select id="cliente_id">
+
+<option value="">
+Selecione o cliente
+</option>
+
+</select>
+
+
+
+
+<label>
+Data de Entrega
+</label>
+
+<input type="date" id="data_entrega">
+
+
+
+
+<label>
+Endereço de Entrega
+</label>
+
+<input 
+type="text"
+id="endereco"
+placeholder="Digite o endereço de entrega">
+
+
+
+
+<label>
+Responsável pelo Recebimento
+</label>
+
+<input 
+type="text"
+id="responsavel"
+placeholder="Nome do responsável">
+
+
+
+
+<label>
+Status da Entrega
+</label>
+
+
+<select id="status">
+
+
+<option value="Aguardando">
+Aguardando
+</option>
+
+
+<option value="Em transporte">
+Em transporte
+</option>
+
+
+<option value="Entregue">
+Entregue
+</option>
+
+
+<option value="Cancelada">
+Cancelada
+</option>
+
+
+</select>
+
+
+
+
+<div class="acoes-formulario">
+
+
+<a href="entregas.html" class="botao-cancelar">
+
+Cancelar
+
+</a>
+
+
+<button type="submit" class="botao-principal">
+
+Salvar Entrega
+
+</button>
+
+
+</div>
+
+
+</form>
+
+
+</section>
+
+
+</main>
+
+
+
+
+
+<script>
+
+
+// CARREGAR FRETES
+
+fetch("http://localhost:3000/fretes")
+
+.then(resposta => resposta.json())
+
+.then(fretes => {
+
+
+const select = document.getElementById("frete_id");
+
+
+fretes.forEach(frete => {
+
+
+select.innerHTML += `
+
+<option value="${frete.id}">
+
+${frete.cliente} - ${frete.destino}
+
+</option>
+
+`;
+
+
+});
+
+
+});
+
+
+
+
+// CARREGAR CLIENTES
+
+fetch("http://localhost:3000/clientes")
+
+.then(resposta => resposta.json())
+
+.then(clientes => {
+
+
+const select = document.getElementById("cliente_id");
+
+
+clientes.forEach(cliente => {
+
+
+select.innerHTML += `
+
+<option value="${cliente.id}">
+
+${cliente.nome}
+
+</option>
+
+`;
+
+
+});
+
+
+});
+
+
+
+
+// SALVAR ENTREGA
+
+
+document.getElementById("form-entrega")
+
+.addEventListener("submit", function(event){
+
+
+event.preventDefault();
+
+
+
+const dados = {
+
+
+frete_id:
+document.getElementById("frete_id").value,
+
+
+cliente_id:
+document.getElementById("cliente_id").value,
+
+
+data_entrega:
+document.getElementById("data_entrega").value,
+
+
+endereco:
+document.getElementById("endereco").value,
+
+
+responsavel:
+document.getElementById("responsavel").value,
+
+
+status:
+document.getElementById("status").value
+
+
+};
+
+
+
+fetch("http://localhost:3000/entregas", {
+
+
+method:"POST",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify(dados)
+
+
+})
+
+
+.then(resposta => resposta.json())
+
+
+.then(resultado => {
+
+
+alert(resultado.mensagem);
+
+
+window.location.href="entregas.html";
+
+
+});
+
+
+});
+
+
+
+</script>
+
+
+
+</body>
+
+</html>

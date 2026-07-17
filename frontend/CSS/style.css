@@ -1,0 +1,486 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #eef2f7;
+    color: #333;
+}
+
+
+/* Cabeçalho */
+
+header {
+    background: linear-gradient(135deg, #1f4e79, #256aa5);
+    color: white;
+    padding: 35px;
+    text-align: center;
+}
+
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+
+header p {
+    font-size: 16px;
+}
+
+
+/* Menu */
+
+nav {
+    background-color: white;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+}
+
+
+nav li a {
+    color: #1f4e79;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+nav li a:hover {
+    color: #256aa5;
+}
+
+
+/* Conteúdo */
+
+main {
+    padding: 35px;
+}
+
+
+h2 {
+    margin-bottom: 25px;
+    color: #1f4e79;
+}
+
+
+/* Cards */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+
+.card h3 {
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+
+.card strong {
+    font-size: 38px;
+    color: #1f4e79;
+}
+
+
+.card p {
+    margin-top: 10px;
+    color: #777;
+}
+
+
+/* Resumo */
+
+.resumo {
+    margin-top: 40px;
+}
+
+
+.tabela {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+
+.tabela p {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+
+.tabela p:last-child {
+    border-bottom: none;
+}
+
+/* Página Clientes */
+
+
+.cabecalho-pagina {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+
+}
+
+
+.cabecalho-pagina p {
+
+    color: #777;
+    margin-top: 8px;
+
+}
+
+
+
+.botao-principal {
+
+    display: inline-block;
+    text-decoration: none;
+
+    background-color: #1f4e79;
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+
+}
+
+
+
+.filtro {
+
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+
+}
+
+
+
+.filtro input {
+
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+
+}
+
+
+
+.tabela-container {
+
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+}
+
+
+
+table {
+
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+
+
+th {
+
+    text-align: left;
+    padding: 15px;
+    background-color: #f1f5f9;
+    color: #1f4e79;
+
+}
+
+
+
+td {
+
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+
+}
+
+
+
+tr:hover {
+
+    background-color: #f8fafc;
+
+}
+
+
+
+.status {
+
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+
+}
+
+
+
+.ativo {
+
+    background-color: #dff5e1;
+    color: #237a32;
+
+}
+
+
+
+.inativo {
+
+    background-color: #f8d7da;
+    color: #842029;
+
+}
+
+
+
+.disponivel {
+
+    background-color: #dff5e1;
+    color: #237a32;
+
+}
+
+
+
+.viagem {
+
+    background-color: #fff3cd;
+    color: #856404;
+
+}
+
+
+
+.finalizado {
+
+    background-color: #dbeafe;
+    color: #1e40af;
+
+}
+
+
+
+.em-rota {
+
+    background-color: #fff3cd;
+    color: #856404;
+
+}
+
+
+.botao-editar {
+
+    background-color: transparent;
+    border: 1px solid #1f4e79;
+    color: #1f4e79;
+    padding: 7px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+
+}
+
+
+
+.botao-editar:hover {
+
+    background-color: #1f4e79;
+    color: white;
+
+}
+
+/* Resumo Clientes */
+
+.resumo-clientes {
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
+
+}
+
+.card-resumo {
+
+    background-color: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+}
+
+
+.card-resumo h3 {
+
+    font-size: 16px;
+
+    margin-bottom: 15px;
+
+    color: #555;
+
+}
+
+
+.card-resumo strong {
+
+    font-size: 32px;
+
+    color: #1f4e79;
+
+}
+
+/* Formulários */
+
+.formulario {
+
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+    max-width: 700px;
+
+}
+
+
+
+.formulario label {
+
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 8px;
+
+    color: #1f4e79;
+    font-weight: bold;
+
+}
+
+
+
+.formulario input,
+.formulario select {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+}
+
+
+
+.formulario input:focus,
+.formulario select:focus {
+
+    outline: none;
+
+    border-color: #1f4e79;
+
+}
+
+
+
+.acoes-formulario {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 15px;
+
+    margin-top: 30px;
+
+}
+
+
+
+.botao-cancelar {
+
+    background-color: #ddd;
+
+    color: #333;
+
+    padding: 13px 22px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+}
+
+
+
+.botao-cancelar:hover {
+
+    background-color: #ccc;
+
+}
+
+
+/* Página ativa do menu */
+
+nav li a.ativo-menu {
+
+    color: white;
+    background-color: #1f4e79;
+    padding: 10px 18px;
+    border-radius: 8px;
+
+}

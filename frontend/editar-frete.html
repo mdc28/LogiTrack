@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Editar Frete - LogiTrack</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>LogiTrack</h1>
+<p>Sistema de Gestão de Transporte</p>
+
+</header>
+
+
+
+<nav>
+
+<ul>
+
+<li><a href="painel-controle.html">Painel de Controle</a></li>
+<li><a href="clientes.html">Clientes</a></li>
+<li><a href="veiculos.html">Veículos</a></li>
+<li><a href="fretes.html" class="ativo-menu">Fretes</a></li>
+<li><a href="entregas.html">Entregas</a></li>
+
+</ul>
+
+</nav>
+
+
+
+<main>
+
+
+<div class="cabecalho-pagina">
+
+<h2>Editar Frete</h2>
+
+<p>Atualização dos dados do transporte</p>
+
+</div>
+
+
+
+<section class="formulario">
+
+
+<form id="form-editar-frete">
+
+
+<label>
+Origem
+</label>
+
+<input type="text" id="origem">
+
+
+
+<label>
+Destino
+</label>
+
+<input type="text" id="destino">
+
+
+
+<label>
+Data do Frete
+</label>
+
+<input type="date" id="data_frete">
+
+
+
+<label>
+Valor
+</label>
+
+<input type="number" step="0.01" id="valor">
+
+
+
+<label>
+Status
+</label>
+
+<select id="status">
+
+<option value="Em aberto">
+Em aberto
+</option>
+
+<option value="Em transporte">
+Em transporte
+</option>
+
+<option value="Finalizado">
+Finalizado
+</option>
+
+</select>
+
+
+
+<div class="acoes-formulario">
+
+
+<a href="fretes.html" class="botao-cancelar">
+Cancelar
+</a>
+
+
+<button class="botao-principal">
+Salvar Alterações
+</button>
+
+
+</div>
+
+
+</form>
+
+
+</section>
+
+
+</main>
+
+
+
+<script>
+
+
+const parametros = new URLSearchParams(window.location.search);
+
+const idFrete = parametros.get("id");
+
+
+
+// BUSCAR FRETE
+
+fetch("http://localhost:3000/fretes")
+
+.then(resposta => resposta.json())
+
+.then(fretes => {
+
+
+const frete = fretes.find(f => f.id == idFrete);
+
+
+
+if(frete){
+
+
+document.getElementById("origem").value = frete.origem;
+
+document.getElementById("destino").value = frete.destino;
+
+document.getElementById("data_frete").value = frete.data_frete.substring(0,10);
+
+document.getElementById("valor").value = frete.valor;
+
+document.getElementById("status").value = frete.status;
+
+
+}
+
+
+});
+
+
+
+
+// SALVAR ALTERAÇÃO
+
+
+document.getElementById("form-editar-frete")
+
+.addEventListener("submit", function(event){
+
+
+event.preventDefault();
+
+
+
+const dados = {
+
+
+origem:
+document.getElementById("origem").value,
+
+
+destino:
+document.getElementById("destino").value,
+
+
+data_frete:
+document.getElementById("data_frete").value,
+
+
+valor:
+document.getElementById("valor").value,
+
+
+status:
+document.getElementById("status").value
+
+
+};
+
+
+
+fetch(`http://localhost:3000/fretes/${idFrete}`,{
+
+
+method:"PUT",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify(dados)
+
+
+
+})
+
+
+.then(resposta => resposta.json())
+
+
+.then(resultado => {
+
+
+alert(resultado.mensagem);
+
+
+window.location.href="fretes.html";
+
+
+});
+
+
+
+});
+
+
+
+</script>
+
+
+</body>
+
+</html>
